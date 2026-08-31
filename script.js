@@ -237,14 +237,62 @@ document.addEventListener("DOMContentLoaded", function () {
   // SRS-006: submit form & ringkasan pendaftaran
   var ringkasanDiv = document.getElementById("ringkasan");
   var btnDaftarUlang = document.getElementById("btn-daftar-ulang");
+  var fakultasError = document.getElementById("fakultas-error");
+  var prodiError = document.getElementById("prodi-error");
+  var mkError = document.getElementById("mk-error");
 
   function getSelectText(selectEl) {
     if (selectEl.selectedIndex < 0) return "";
     return selectEl.options[selectEl.selectedIndex].text;
   }
 
+  function clearAllErrors() {
+    showError(namaInput, namaError, "");
+    showError(nimInput, nimError, "");
+    fakultasError.textContent = "";
+    prodiError.textContent = "";
+    mkError.textContent = "";
+  }
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    clearAllErrors();
+
+    var hasError = false;
+
+    // Validasi nama
+    var namaMsg = validateNama(namaInput.value);
+    if (namaMsg) {
+      showError(namaInput, namaError, namaMsg);
+      hasError = true;
+    }
+
+    // Validasi nim
+    var nimMsg = validateNim(nimInput.value);
+    if (nimMsg) {
+      showError(nimInput, nimError, nimMsg);
+      hasError = true;
+    }
+
+    // Validasi fakultas
+    if (!fakultasSelect.value) {
+      fakultasError.textContent = "Fakultas wajib dipilih";
+      hasError = true;
+    }
+
+    // Validasi prodi
+    if (!prodiSelect.value) {
+      prodiError.textContent = "Program Studi wajib dipilih";
+      hasError = true;
+    }
+
+    // Validasi mata kuliah
+    if (selectedMk.length === 0) {
+      mkError.textContent = "Pilih minimal 1 mata kuliah";
+      hasError = true;
+    }
+
+    if (hasError) return;
 
     // Isi ringkasan
     document.getElementById("ring-nama").textContent = namaInput.value.trim();
@@ -282,6 +330,9 @@ document.addEventListener("DOMContentLoaded", function () {
     renderDaftarMk();
     namaError.textContent = "";
     nimError.textContent = "";
+    fakultasError.textContent = "";
+    prodiError.textContent = "";
+    mkError.textContent = "";
     namaInput.classList.remove("error");
     nimInput.classList.remove("error");
   });

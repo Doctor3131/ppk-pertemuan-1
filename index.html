@@ -32,12 +32,14 @@
         <select id="fakultas" name="fakultas">
           <option value="">-- Pilih Fakultas --</option>
         </select>
+        <span class="error-msg" id="fakultas-error"></span>
       </div>
       <div class="form-group">
         <label for="prodi">Program Studi</label>
         <select id="prodi" name="prodi" disabled>
           <option value="">-- Pilih Program Studi --</option>
         </select>
+        <span class="error-msg" id="prodi-error"></span>
       </div>
       <div class="form-group">
         <label for="mk">Mata Kuliah Praktikum</label>
@@ -49,6 +51,7 @@
         </div>
         <ul id="daftar-mk"></ul>
         <p class="mk-count">Jumlah dipilih: <span id="jumlah-mk">0</span></p>
+        <span class="error-msg" id="mk-error"></span>
       </div>
       <button type="submit">Daftar</button>
     </form>
