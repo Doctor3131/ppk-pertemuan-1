@@ -150,4 +150,84 @@ document.addEventListener("DOMContentLoaded", function () {
   nimInput.addEventListener("input", function () {
     showError(nimInput, nimError, validateNim(nimInput.value));
   });
+
+  // SRS-005: tambah/hapus mata kuliah praktikum
+  var mkSelect = document.getElementById("mk");
+  var btnTambahMk = document.getElementById("btn-tambah-mk");
+  var daftarMk = document.getElementById("daftar-mk");
+  var jumlahMk = document.getElementById("jumlah-mk");
+  var selectedMk = [];
+
+  var dataMk = [
+    { id: "prak-pemweb", nama: "Praktikum Pemrograman Web" },
+    { id: "prak-basisdata", nama: "Praktikum Basis Data" },
+    { id: "prak-jarkom", nama: "Praktikum Jaringan Komputer" },
+    { id: "prak-rpl", nama: "Praktikum Rekayasa Perangkat Lunak" },
+  ];
+
+  // Populate MK dropdown
+  dataMk.forEach(function (mk) {
+    var option = document.createElement("option");
+    option.value = mk.id;
+    option.textContent = mk.nama;
+    mkSelect.appendChild(option);
+  });
+
+  function updateJumlahMk() {
+    jumlahMk.textContent = selectedMk.length;
+  }
+
+  function tambahMk() {
+    var mkId = mkSelect.value;
+    if (!mkId) return;
+
+    // Cek duplikat
+    var sudahAda = selectedMk.some(function (item) {
+      return item.id === mkId;
+    });
+    if (sudahAda) {
+      alert("Mata kuliah sudah dipilih!");
+      return;
+    }
+
+    // Cari data MK
+    var mkData = dataMk.find(function (item) {
+      return item.id === mkId;
+    });
+    if (!mkData) return;
+
+    selectedMk.push(mkData);
+    renderDaftarMk();
+
+    // Reset select
+    mkSelect.value = "";
+  }
+
+  function hapusMk(mkId) {
+    selectedMk = selectedMk.filter(function (item) {
+      return item.id !== mkId;
+    });
+    renderDaftarMk();
+  }
+
+  function renderDaftarMk() {
+    daftarMk.innerHTML = "";
+    selectedMk.forEach(function (mk) {
+      var li = document.createElement("li");
+      var span = document.createElement("span");
+      span.textContent = mk.nama;
+      var btnHapus = document.createElement("button");
+      btnHapus.type = "button";
+      btnHapus.textContent = "Hapus";
+      btnHapus.addEventListener("click", function () {
+        hapusMk(mk.id);
+      });
+      li.appendChild(span);
+      li.appendChild(btnHapus);
+      daftarMk.appendChild(li);
+    });
+    updateJumlahMk();
+  }
+
+  btnTambahMk.addEventListener("click", tambahMk);
 });
