@@ -194,3 +194,56 @@ button[type="submit"]:hover {
   color: #666;
   margin-top: 0.3rem;
 }
+
+/* Ringkasan styles */
+.ringkasan {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.ringkasan h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  color: #1a237e;
+}
+
+.ringkasan-item {
+  display: flex;
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.ringkasan-label {
+  font-weight: 600;
+  min-width: 120px;
+}
+
+.ringkasan-item ul {
+  list-style: disc;
+  margin-left: 1rem;
+  padding: 0;
+}
+
+.ringkasan-item ul li {
+  margin-bottom: 0.2rem;
+}
+
+#btn-daftar-ulang {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.7rem;
+  background: #757575;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#btn-daftar-ulang:hover {
+  background: #616161;
+}

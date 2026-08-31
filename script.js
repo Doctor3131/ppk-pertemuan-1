@@ -230,4 +230,52 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   btnTambahMk.addEventListener("click", tambahMk);
+
+  // SRS-006: submit form & ringkasan pendaftaran
+  var ringkasanDiv = document.getElementById("ringkasan");
+  var btnDaftarUlang = document.getElementById("btn-daftar-ulang");
+
+  function getSelectText(selectEl) {
+    if (selectEl.selectedIndex < 0) return "";
+    return selectEl.options[selectEl.selectedIndex].text;
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Isi ringkasan
+    document.getElementById("ring-nama").textContent = namaInput.value.trim();
+    document.getElementById("ring-nim").textContent = nimInput.value.trim();
+    document.getElementById("ring-fakultas").textContent = getSelectText(fakultasSelect);
+    document.getElementById("ring-prodi").textContent = getSelectText(prodiSelect);
+
+    var ringMk = document.getElementById("ring-mk");
+    ringMk.innerHTML = "";
+    selectedMk.forEach(function (mk) {
+      var li = document.createElement("li");
+      li.textContent = mk.nama;
+      ringMk.appendChild(li);
+    });
+
+    // Sembunyikan form, tampilkan ringkasan
+    form.style.display = "none";
+    ringkasanDiv.style.display = "block";
+  });
+
+  btnDaftarUlang.addEventListener("click", function () {
+    // Sembunyikan ringkasan, tampilkan form
+    ringkasanDiv.style.display = "none";
+    form.style.display = "block";
+    form.reset();
+
+    // Reset semua state
+    prodiSelect.disabled = true;
+    prodiSelect.innerHTML = '<option value="">-- Pilih Program Studi --</option>';
+    selectedMk = [];
+    renderDaftarMk();
+    namaError.textContent = "";
+    nimError.textContent = "";
+    namaInput.classList.remove("error");
+    nimInput.classList.remove("error");
+  });
 });
