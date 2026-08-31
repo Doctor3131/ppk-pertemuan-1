@@ -40,12 +40,29 @@ document.addEventListener("DOMContentLoaded", function () {
   const fakultasSelect = document.getElementById("fakultas");
   const prodiSelect = document.getElementById("prodi");
 
-  // Placeholder: data akan diisi di SRS-003
   const dataFakultas = [
     { id: "fti", nama: "Fakultas Teknologi Informasi" },
     { id: "feb", nama: "Fakultas Ekonomi dan Bisnis" },
     { id: "fh", nama: "Fakultas Hukum" },
   ];
+
+  const dataProdi = {
+    fti: [
+      { id: "ti", nama: "Teknik Informatika" },
+      { id: "si", nama: "Sistem Informasi" },
+      { id: "ti2", nama: "Teknologi Informasi" },
+    ],
+    feb: [
+      { id: "ak", nama: "Akuntansi" },
+      { id: "mba", nama: "Manajemen Bisnis" },
+      { id: "ep", nama: "Ekonomi Pembangunan" },
+    ],
+    fh: [
+      { id: "ih", nama: "Ilmu Hukum" },
+      { id: "hn", nama: "Hukum Notariat" },
+      { id: "hi", nama: "Hukum Internasional" },
+    ],
+  };
 
   // Isi dropdown fakultas
   dataFakultas.forEach(function (fakultas) {
@@ -53,5 +70,36 @@ document.addEventListener("DOMContentLoaded", function () {
     option.value = fakultas.id;
     option.textContent = fakultas.nama;
     fakultasSelect.appendChild(option);
+  });
+
+  // SRS-003: populate prodi when fakultas changes
+  function populateProdi(fakultasId) {
+    // Clear existing options
+    prodiSelect.innerHTML = "";
+
+    // Add default placeholder
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "-- Pilih Program Studi --";
+    prodiSelect.appendChild(placeholder);
+
+    if (!fakultasId || !dataProdi[fakultasId]) {
+      prodiSelect.disabled = true;
+      return;
+    }
+
+    // Add prodi options from mapping
+    dataProdi[fakultasId].forEach(function (prodi) {
+      const option = document.createElement("option");
+      option.value = prodi.id;
+      option.textContent = prodi.nama;
+      prodiSelect.appendChild(option);
+    });
+
+    prodiSelect.disabled = false;
+  }
+
+  fakultasSelect.addEventListener("change", function () {
+    populateProdi(this.value);
   });
 });
