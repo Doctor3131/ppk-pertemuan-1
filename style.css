@@ -119,3 +119,16 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background: #283593;
 }
+
+/* Validation error styles */
+.error-msg {
+  display: block;
+  color: #d32f2f;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  min-height: 1.1em;
+}
+
+.form-group input.error {
+  border-color: #d32f2f;
+}

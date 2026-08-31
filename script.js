@@ -102,4 +102,52 @@ document.addEventListener("DOMContentLoaded", function () {
   fakultasSelect.addEventListener("change", function () {
     populateProdi(this.value);
   });
+
+  // SRS-004: validasi real-time nama & NIM
+  // Catatan: validasi ini hanya client-side (UX), bukan pengganti validasi server
+  var namaInput = document.getElementById("nama");
+  var nimInput = document.getElementById("nim");
+  var namaError = document.getElementById("nama-error");
+  var nimError = document.getElementById("nim-error");
+
+  function validateNama(value) {
+    if (!value || value.trim() === "") {
+      return "Nama wajib diisi";
+    }
+    if (value.trim().length < 2) {
+      return "Nama minimal 2 karakter";
+    }
+    return "";
+  }
+
+  function validateNim(value) {
+    if (!value || value.trim() === "") {
+      return "NIM wajib diisi";
+    }
+    if (!/^\d+$/.test(value.trim())) {
+      return "NIM harus berupa angka";
+    }
+    if (value.trim().length < 8) {
+      return "NIM minimal 8 digit";
+    }
+    return "";
+  }
+
+  function showError(inputEl, errorEl, message) {
+    if (message) {
+      errorEl.textContent = message;
+      inputEl.classList.add("error");
+    } else {
+      errorEl.textContent = "";
+      inputEl.classList.remove("error");
+    }
+  }
+
+  namaInput.addEventListener("input", function () {
+    showError(namaInput, namaError, validateNama(namaInput.value));
+  });
+
+  nimInput.addEventListener("input", function () {
+    showError(nimInput, nimError, validateNim(nimInput.value));
+  });
 });
