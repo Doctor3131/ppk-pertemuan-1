@@ -275,6 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
     form.reset();
 
     // Reset semua state
+    formSubmitted = false;
     prodiSelect.disabled = true;
     prodiSelect.innerHTML = '<option value="">-- Pilih Program Studi --</option>';
     selectedMk = [];
