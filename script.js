@@ -3,6 +3,10 @@
  * JavaScript utama
  */
 
+// ============================================================
+// SRS-002: Jam berjalan & info browser
+// ============================================================
+
 function updateJam() {
   const jamEl = document.getElementById("jam");
   const now = new Date();
@@ -30,6 +34,10 @@ function detectBrowser() {
   browserEl.textContent = browser;
 }
 
+// ============================================================
+// Inisialisasi & deklarasi elemen shared
+// ============================================================
+
 document.addEventListener("DOMContentLoaded", function () {
   // SRS-002: jam berjalan & info browser
   updateJam();
@@ -42,6 +50,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // SRS-007: flag untuk beforeunload warning
   var formSubmitted = false;
+
+  // ============================================================
+  // SRS-003: Dropdown fakultas → program studi
+  // ============================================================
 
   const dataFakultas = [
     { id: "fti", nama: "Fakultas Teknologi Informasi" },
@@ -75,12 +87,10 @@ document.addEventListener("DOMContentLoaded", function () {
     fakultasSelect.appendChild(option);
   });
 
-  // SRS-003: populate prodi when fakultas changes
+  // Populate prodi saat fakultas berubah
   function populateProdi(fakultasId) {
-    // Clear existing options
     prodiSelect.innerHTML = "";
 
-    // Add default placeholder
     const placeholder = document.createElement("option");
     placeholder.value = "";
     placeholder.textContent = "-- Pilih Program Studi --";
@@ -91,7 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // Add prodi options from mapping
     dataProdi[fakultasId].forEach(function (prodi) {
       const option = document.createElement("option");
       option.value = prodi.id;
@@ -106,8 +115,12 @@ document.addEventListener("DOMContentLoaded", function () {
     populateProdi(this.value);
   });
 
-  // SRS-004: validasi real-time nama & NIM
-  // Catatan: validasi ini hanya client-side (UX), bukan pengganti validasi server
+  // ============================================================
+  // SRS-004: Validasi real-time nama & NIM
+  // Catatan: validasi ini hanya client-side (UX), bukan
+  // pengganti validasi server.
+  // ============================================================
+
   var namaInput = document.getElementById("nama");
   var nimInput = document.getElementById("nim");
   var namaError = document.getElementById("nama-error");
@@ -154,7 +167,10 @@ document.addEventListener("DOMContentLoaded", function () {
     showError(nimInput, nimError, validateNim(nimInput.value));
   });
 
-  // SRS-005: tambah/hapus mata kuliah praktikum
+  // ============================================================
+  // SRS-005: Tambah & hapus mata kuliah praktikum
+  // ============================================================
+
   var mkSelect = document.getElementById("mk");
   var btnTambahMk = document.getElementById("btn-tambah-mk");
   var daftarMk = document.getElementById("daftar-mk");
@@ -184,7 +200,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var mkId = mkSelect.value;
     if (!mkId) return;
 
-    // Cek duplikat
     var sudahAda = selectedMk.some(function (item) {
       return item.id === mkId;
     });
@@ -193,7 +208,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // Cari data MK
     var mkData = dataMk.find(function (item) {
       return item.id === mkId;
     });
@@ -201,8 +215,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     selectedMk.push(mkData);
     renderDaftarMk();
-
-    // Reset select
     mkSelect.value = "";
   }
 
@@ -234,7 +246,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   btnTambahMk.addEventListener("click", tambahMk);
 
-  // SRS-006: submit form & ringkasan pendaftaran
+  // ============================================================
+  // SRS-006: Submit form & ringkasan pendaftaran
+  // ============================================================
+
   var ringkasanDiv = document.getElementById("ringkasan");
   var btnDaftarUlang = document.getElementById("btn-daftar-ulang");
   var fakultasError = document.getElementById("fakultas-error");
@@ -260,33 +275,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var hasError = false;
 
-    // Validasi nama
     var namaMsg = validateNama(namaInput.value);
     if (namaMsg) {
       showError(namaInput, namaError, namaMsg);
       hasError = true;
     }
 
-    // Validasi nim
     var nimMsg = validateNim(nimInput.value);
     if (nimMsg) {
       showError(nimInput, nimError, nimMsg);
       hasError = true;
     }
 
-    // Validasi fakultas
     if (!fakultasSelect.value) {
       fakultasError.textContent = "Fakultas wajib dipilih";
       hasError = true;
     }
 
-    // Validasi prodi
     if (!prodiSelect.value) {
       prodiError.textContent = "Program Studi wajib dipilih";
       hasError = true;
     }
 
-    // Validasi mata kuliah
     if (selectedMk.length === 0) {
       mkError.textContent = "Pilih minimal 1 mata kuliah";
       hasError = true;
@@ -317,12 +327,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   btnDaftarUlang.addEventListener("click", function () {
-    // Sembunyikan ringkasan, tampilkan form
     ringkasanDiv.style.display = "none";
     form.style.display = "block";
     form.reset();
 
-    // Reset semua state
     formSubmitted = false;
     prodiSelect.disabled = true;
     prodiSelect.innerHTML = '<option value="">-- Pilih Program Studi --</option>';
@@ -337,7 +345,10 @@ document.addEventListener("DOMContentLoaded", function () {
     nimInput.classList.remove("error");
   });
 
-  // SRS-007: peringatan sebelum tutup tab jika form belum dikirim
+  // ============================================================
+  // SRS-007: Peringatan sebelum tutup tab jika form belum dikirim
+  // ============================================================
+
   window.addEventListener("beforeunload", function (e) {
     if (!formSubmitted) {
       e.preventDefault();
