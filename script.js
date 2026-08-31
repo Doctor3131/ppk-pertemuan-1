@@ -40,6 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const fakultasSelect = document.getElementById("fakultas");
   const prodiSelect = document.getElementById("prodi");
 
+  // SRS-007: flag untuk beforeunload warning
+  var formSubmitted = false;
+
   const dataFakultas = [
     { id: "fti", nama: "Fakultas Teknologi Informasi" },
     { id: "feb", nama: "Fakultas Ekonomi dan Bisnis" },
@@ -260,6 +263,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Sembunyikan form, tampilkan ringkasan
     form.style.display = "none";
     ringkasanDiv.style.display = "block";
+
+    // Tandai form sudah dikirim
+    formSubmitted = true;
   });
 
   btnDaftarUlang.addEventListener("click", function () {
@@ -277,5 +283,13 @@ document.addEventListener("DOMContentLoaded", function () {
     nimError.textContent = "";
     namaInput.classList.remove("error");
     nimInput.classList.remove("error");
+  });
+
+  // SRS-007: peringatan sebelum tutup tab jika form belum dikirim
+  window.addEventListener("beforeunload", function (e) {
+    if (!formSubmitted) {
+      e.preventDefault();
+      e.returnValue = "";
+    }
   });
 });
