@@ -26,7 +26,14 @@ header {
   z-index: 100;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
+}
+
+.header-info {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.8rem;
+  opacity: 0.85;
 }
 
 header h1 {
