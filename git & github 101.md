@@ -6,7 +6,7 @@
 4. [Commit](#Commit)
 5. [Branching & Merging](#Branching-&-Merging)
 6. [#Push ke GitHub](#Push-ke-GitHub)
-7. [Glosarium Command](Glosarium-Command)
+7. [Glosarium Command](#Glosarium-Command)
 
 ---
 
