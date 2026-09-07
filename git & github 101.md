@@ -27,7 +27,7 @@ git status # cek inisialisasi berhasil dengan command berikut
 
 File & Directory yang ada di dalam directory yang terinisialisasi git pada dasarnya memiliki 3 tipe, unstaged, staged, dan commited. Gampangnya alurnya adalah berikut:
 
-![[git-unstaged-staged-commit-diagram.png]]
+<img width="886" height="140" alt="image" src="https://github.com/user-attachments/assets/57f51091-023b-43d4-815f-eef78db9562b" />
 
 Bisa dilihat antara unstaged dan staged itu bi-directional, dimana misal suatu file, kita bisa dengan mudah merubah status nya dari unstaged ke staged dan sebaliknya. Berbeda dengan commit yang harus berasal dari status staged. **Hanya file dan directory yang telah di staged yang bisa di commit.** Berikut beberapa git command yang related terkait tiga hal ini:
 
@@ -172,7 +172,8 @@ Salah satu momok dari git adalah merge conflict. Hal ini dapat kita minimalisir 
 
 Misal kita akan mengerjakan 3 fitur (A, B, dan C). Tiap fiturnya kita buat branch baru. Setelah development-nya selesai, baru kita merge satu-satu ke branch main. Flow ini memudahkan kita untuk men-solve merge conflict dan memungkinkan untuk secara paralel (dalam tim) mengerjakan project-nya.
 
-![[git-branching-strategi-diagram.png]]
+<img width="816" height="420" alt="image" src="https://github.com/user-attachments/assets/32a717fb-0223-47fe-a23a-6b400f4d6248" />
+
 
 Perhatikan Fitur B yang merupakan branch dari Fitur A. Ini bisa dan boleh selama kalian paham apa yang kalian lakukan (misal Fitur B memang butuh kode dari Fitur A yang belum di-merge ke main).
 
@@ -209,8 +210,6 @@ git merge feature/login-page # merge branch feature/login-page ke branch main
 ```
 
 ### Menangani merge conflict
-
-![[git-merge-conflict-ilustrasi.png]]
 
 Conflict terjadi ketika git tidak bisa otomatis menggabungkan perubahan, biasanya karena baris kode yang sama diubah secara berbeda di kedua branch. Git akan menandai bagian yang konflik di dalam file dengan format berikut:
 
