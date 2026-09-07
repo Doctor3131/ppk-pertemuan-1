@@ -1,3 +1,5 @@
+<img width="1914" height="1301" alt="image" src="https://github.com/user-attachments/assets/baa8ccbb-e796-4bdc-87e3-2c3c40b38bcb" />
+
 ## Daftar Isi
 
 1. [Setup git di project](#Setup-git-di-project)
